@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "me.illusioner.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+		"ShelfRenderStateMixin"
+	],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
