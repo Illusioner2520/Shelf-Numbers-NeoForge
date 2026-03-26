@@ -10,16 +10,14 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.ShelfRenderer;
 import net.minecraft.client.renderer.blockentity.state.ShelfRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Style;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.ShelfBlock;
 import net.minecraft.world.level.block.entity.ShelfBlockEntity;
 import net.minecraft.world.phys.Vec3;
-import javax.annotation.Nullable;
 
 public class ShelfNumbersRenderer extends ShelfRenderer {
     private final Font font;
@@ -30,7 +28,7 @@ public class ShelfNumbersRenderer extends ShelfRenderer {
     }
 
     @Override
-    public void extractRenderState(ShelfBlockEntity shelfBlockEntity, ShelfRenderState shelfRenderState, float f, Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+    public void extractRenderState(ShelfBlockEntity shelfBlockEntity, ShelfRenderState shelfRenderState, float f, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
         super.extractRenderState(shelfBlockEntity, shelfRenderState, f, vec3, crumblingOverlay);
         ((ShelfRenderStateAccessor) shelfRenderState).setBlockEntity(shelfBlockEntity);
     }
@@ -39,7 +37,7 @@ public class ShelfNumbersRenderer extends ShelfRenderer {
     public void submit(ShelfRenderState shelfRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
         super.submit(shelfRenderState, poseStack, submitNodeCollector, cameraRenderState);
         poseStack.pushPose();
-        Direction direction = (Direction) shelfRenderState.blockState.getValue(ShelfBlock.FACING);
+        Direction direction = shelfRenderState.facing;
         float shelfDir = -direction.toYRot();
         NonNullList<ItemStack> items = ((ShelfRenderStateAccessor) shelfRenderState).getBlockEntity().getItems();
         for (int i = 0; i < shelfRenderState.items.length; i++) {

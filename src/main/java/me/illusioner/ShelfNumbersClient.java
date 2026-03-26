@@ -18,7 +18,7 @@ public class ShelfNumbersClient {
     public static final String MODID = "shelf_numbers";
 
     public ShelfNumbersClient(ModContainer container) {
-        container.registerConfig(ModConfig.Type.COMMON, ShelfNumbersConfig.SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, ShelfNumbersConfig.SPEC);
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 

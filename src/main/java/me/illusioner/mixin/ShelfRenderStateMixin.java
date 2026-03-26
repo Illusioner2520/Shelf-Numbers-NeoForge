@@ -13,12 +13,10 @@ public class ShelfRenderStateMixin implements ShelfRenderStateAccessor {
 	@Unique
     private ShelfBlockEntity illusioner$blockEntity;
 
-    // Getter for our renderer
     public ShelfBlockEntity getBlockEntity() {
         return illusioner$blockEntity;
     }
 
-    // Setter, can be called when creating the render state
     public void setBlockEntity(ShelfBlockEntity blockEntity) {
         this.illusioner$blockEntity = blockEntity;
     }
