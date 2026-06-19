@@ -6,18 +6,18 @@ import net.minecraft.world.level.block.entity.ShelfBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-import me.illusioner.ShelfRenderStateAccessor;
+import me.illusioner.accessor.ShelfRenderStateAccessor;
 
 @Mixin(ShelfRenderState.class)
 public class ShelfRenderStateMixin implements ShelfRenderStateAccessor {
 	@Unique
-    private ShelfBlockEntity illusioner$blockEntity;
+    private ShelfBlockEntity shelf_numbers$blockEntity;
 
     public ShelfBlockEntity getBlockEntity() {
-        return illusioner$blockEntity;
+        return shelf_numbers$blockEntity;
     }
 
     public void setBlockEntity(ShelfBlockEntity blockEntity) {
-        this.illusioner$blockEntity = blockEntity;
+        this.shelf_numbers$blockEntity = blockEntity;
     }
 }

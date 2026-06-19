@@ -3,6 +3,7 @@ package me.illusioner;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
+import me.illusioner.accessor.ShelfRenderStateAccessor;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Font.DisplayMode;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -37,7 +38,7 @@ public class ShelfNumbersRenderer extends ShelfRenderer {
     public void submit(ShelfRenderState shelfRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
         super.submit(shelfRenderState, poseStack, submitNodeCollector, cameraRenderState);
         poseStack.pushPose();
-        Direction direction = shelfRenderState.facing;
+        Direction direction = (Direction) shelfRenderState.facing;
         float shelfDir = -direction.toYRot();
         NonNullList<ItemStack> items = ((ShelfRenderStateAccessor) shelfRenderState).getBlockEntity().getItems();
         for (int i = 0; i < shelfRenderState.items.length; i++) {
@@ -51,18 +52,18 @@ public class ShelfNumbersRenderer extends ShelfRenderer {
         float x = (float) (index - 1) * 0.3125F;
         poseStack.translate(0.5F, 0.5F, 0.5F);
         poseStack.mulPose(Axis.YP.rotationDegrees(shelfDir));
-        poseStack.translate(x, ShelfNumbersConfig.displayOnTop.get() ? 0.375f : -0.375F, -0.187F);
-        float scale = ShelfNumbersConfig.fontSize.get() / 1620.0f;
+        poseStack.translate(x, ShelfNumbersConfig.displayOnTop ? 0.375f : -0.375F, -0.187F);
+        float scale = ShelfNumbersConfig.fontSize / 1620.0f;
         poseStack.scale(scale, -scale, scale);
         String text = Integer.toString(count);
-        if (count == 0 && !ShelfNumbersConfig.displayWithoutItems.get()) text = "";
-        if (count == 1 && !ShelfNumbersConfig.displayWithSingleItem.get()) text = "";
-        if (count == maxStackSize && !ShelfNumbersConfig.displayWithFullStack.get()) text = "";
-        Style style = Style.EMPTY.withBold(ShelfNumbersConfig.bold.get()).withItalic(ShelfNumbersConfig.italics.get()).withUnderlined(ShelfNumbersConfig.underline.get()).withStrikethrough(ShelfNumbersConfig.strikethrough.get()).withObfuscated(ShelfNumbersConfig.obfuscated.get());
+        if (count == 0 && !ShelfNumbersConfig.displayWithoutItems) text = "";
+        if (count == 1 && !ShelfNumbersConfig.displayWithSingleItem) text = "";
+        if (count == maxStackSize && !ShelfNumbersConfig.displayWithFullStack) text = "";
+        Style style = Style.EMPTY.withBold(ShelfNumbersConfig.bold).withItalic(ShelfNumbersConfig.italics).withUnderlined(ShelfNumbersConfig.underline).withStrikethrough(ShelfNumbersConfig.strikethrough).withObfuscated(ShelfNumbersConfig.obfuscated);
         FormattedCharSequence formattedCharSequence = FormattedCharSequence.forward(text, style);
         float width = (float) (-this.font.width(text) / 2);
         float height = (float) (-this.font.lineHeight / 2);
-        submitNodeCollector.submitText(poseStack, width, height, formattedCharSequence, ShelfNumbersConfig.showShadow.get(), DisplayMode.POLYGON_OFFSET, shelfRenderState.lightCoords, ShelfNumbersConfig.convertColor(ShelfNumbersConfig.textColor.get()), 0, ShelfNumbersConfig.convertColor(ShelfNumbersConfig.outlineColor.get()));
+        submitNodeCollector.submitText(poseStack, width, height, formattedCharSequence, ShelfNumbersConfig.showShadow, DisplayMode.POLYGON_OFFSET, shelfRenderState.lightCoords, ShelfNumbersConfig.textColor, 0, ShelfNumbersConfig.outlineColor);
         poseStack.popPose();
     }
 }

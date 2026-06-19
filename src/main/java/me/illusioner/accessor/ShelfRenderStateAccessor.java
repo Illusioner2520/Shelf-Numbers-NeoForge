@@ -1,4 +1,4 @@
-package me.illusioner;
+package me.illusioner.accessor;
 
 import net.minecraft.world.level.block.entity.ShelfBlockEntity;
 
